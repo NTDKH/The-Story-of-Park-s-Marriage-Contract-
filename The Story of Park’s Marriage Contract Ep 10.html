@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<html lang="km">    
+<head>
+  <head>
+    <link href='https://raw.githack.com/Neasreyka/Admin-logo/main/jw%202.0.8.css' rel='stylesheet'/> 
+	<title> </title>
+	</head>
+<body>
+  <script src='https://cdn.jwplayer.com/libraries/IDzF9Zmk.js' type='text/javascript'></script>
+  <style>
+  #player {
+    position: absolute;
+    width: 100% !important;
+    height: 100% !important;
+  }
+  .jwplayer .jw-rightclick .jw-rightclick-list {
+        border-radius: 1px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: none;
+    }
+</style>
+	<!-- Player -->
+<div id="player"></div>
+<script>
+  const playerInstance = jwplayer("player").setup({
+  controls: true,
+  sharing: false,
+  displaytitle: false,
+  displaydescription: true,
+  abouttext: "Buy Me a Coffee",
+  aboutlink: "@mr_ron168",
+
+  skin: {
+    name: "netflix"
+  },
+  logo: {
+    file:
+      " # ",
+    link: " "
+  },
+  captions: {
+    color: "#FFF",
+    fontSize: 12,
+    backgroundOpacity: 60,
+    edgeStyle: "uniform"
+  },
+
+  playlist: [
+    {
+      title: " ",
+      description: " ",
+      image: "#",
+      sources: [
+      {
+          file:
+            "https://cdn.dzen.ru/vod/converted-video/vod-content/57/96/32/23/37/11/89/30/23/9/fc4bfdd4-f29c-4cec-80d0-91cb56209369/kaltura/desc_a7b53d2d0715514642420ec335df7871/4304705653765567754/ysign1=734ffe51021559f912ad828e6e3263458ebcf0b27fadc06221b5dbc12062944b,abcID=967,from=zen,pfx,sfx,ts=6596d63e/manifest.mpd?vsid=2de1f39203a5f414dbdc88cbebe0c14f4294b8bf961cxZWPx1234x1703520064&clid=495&dzenuid=&slots=925788%2C0%2C72%3B931635%2C0%2C96%3B933783%2C0%2C26&from=zen&partner-id=NaN&video-category-id=0&imp-id=undefined&gzip=1&reqid=1008817379.204.1703520062757.28569&video-content-id=vCvVPG_xivTs&partner-stat-id=0&duration=4016&puid=10000000778590984&from_block=site_desktop&strongest_id=10000000778590984&item_id=7474455793562377531&stream_block=video_related%3Avideo_page&rid=1008817379.204.1703520062757.28569&ppi=site_desktop%3Adzen%3Avideo_site_desktop&frontend_vh_reqid=1008817379.204.1703520062757.28569&zen-content-id=vCvVPG_xivTs&video-content-duration=3996&content_id=vCvVPG_xivTs&dzen-exp-ids=925788%2C72%3B93163...",
+          label: "Auto",
+          default: true
+        
+        }],
+        captions: [
+        {file:"https://res.cloudinary.com/dkymshypa/raw/upload/v1703519877/The%20Story%20of%20Park%E2%80%99s%20Marriage%20Contract/The_Story_of_Park_s_Marriage_Contract_Ep_10_biuibj.srt",
+          label: "Khmer",
+          kind: "captions",
+          default: true
+          
+        },
+        {
+        file:"https://res.cloudinary.com/dkymshypa/raw/upload/v1703519925/The%20Story%20of%20Park%E2%80%99s%20Marriage%20Contract/Eng/The_Story_of_Park_s_Marriage_Contract_Ep_10_solxtt.srt",
+          label: "English",
+          kind: "captions"
+        
+      
+        }],
+    }
+  ],
+  advertising: {
+    client: "vast",
+  }
+});
+
+playerInstance.on("ready", function () {
+  const buttonId = "download-video-button";
+  const iconPath =
+    "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0Ij48cGF0aCBmaWxsPSJub25lIiBkPSJNMCAwaDI0djI0SDB6Ii8+PHBhdGggZD0iTTMgMTloMTh2Mkgzdi0yem0xMC01LjgyOEwxOS4wNzEgNy4xbDEuNDE0IDEuNDE0TDEyIDE3IDMuNTE1IDguNTE1IDQuOTI5IDcuMSAxMSAxMy4xN1YyaDJ2MTEuMTcyeiIgZmlsbD0icmdiYSgyNDcsMjQ3LDI0NywxKSIvPjwvc3ZnPg==";
+  const tooltipText = "Download";
+  // This function is executed when the button is clicked
+  function buttonClickAction() {
+    const playlistItem = playerInstance.getPlaylistItem();
+    const anchor = document.createElement("a");
+    const fileUrl = playlistItem.file;
+    anchor.setAttribute("href", fileUrl);
+    const downloadName = playlistItem.file.split("/").pop();
+    anchor.setAttribute("download", downloadName);
+    anchor.style.display = "none";
+    document.body.appendChild(anchor);
+    anchor.click();
+    document.body.removeChild(anchor);
+  }
+
+  // Move the timeslider in-line with other controls
+  const playerContainer = playerInstance.getContainer();
+  const buttonContainer = playerContainer.querySelector(".jw-button-container");
+  const spacer = buttonContainer.querySelector(".jw-spacer");
+  const timeSlider = playerContainer.querySelector(".jw-slider-time");
+  // Forward 10 seconds
+  const rewindContainer = playerContainer.querySelector(
+    ".jw-display-icon-rewind"
+  );
+  const forwardContainer = rewindContainer.cloneNode(true);
+  const forwardDisplayButton = forwardContainer.querySelector(
+    ".jw-icon-rewind"
+  );
+  forwardDisplayButton.style.transform = "scaleX(-1)";
+  forwardDisplayButton.ariaLabel = "Forward 10 Seconds";
+  const nextContainer = playerContainer.querySelector(".jw-display-icon-next");  nextContainer.parentNode.insertBefore(forwardContainer, nextContainer);
+  // control bar icon
+  playerContainer.querySelector(".jw-display-icon-next").style.display = "none"; // hide next button
+  const rewindControlBarButton = buttonContainer.querySelector(
+    ".jw-icon-rewind"
+  );
+  const forwardControlBarButton = rewindControlBarButton.cloneNode(true);
+  forwardControlBarButton.style.transform = "scaleX(-1)";
+  forwardControlBarButton.ariaLabel = "Forward 10 Seconds";  rewindControlBarButton.parentNode.insertBefore(
+    forwardControlBarButton,    rewindControlBarButton.nextElementSibling
+  );
+  // add onclick handlers
+  [forwardDisplayButton, forwardControlBarButton].forEach((button) => {
+    button.onclick = () => {     playerInstance.seek(playerInstance.getPosition() + 10);
+    };
+  });
+});
+</script>
+</body>
+</html>
